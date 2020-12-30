@@ -108,13 +108,15 @@ clear all; close all; clc
 
 % 5
 load landsat_data
+
+% what does the images look like?
 figure()
 subplot(2,4,1)
-imagesc(landsat_data(:,:,1))
+imagesc(landsat_data(:,:,1)) % g
 subplot(2,4,2)
-imagesc(landsat_data(:,:,2))
+imagesc(landsat_data(:,:,2)) % g
 subplot(2,4,3)
-imagesc(landsat_data(:,:,3))
+imagesc(landsat_data(:,:,3)) % r
 subplot(2,4,4)
 imagesc(landsat_data(:,:,4))
 subplot(2,4,5)
@@ -124,16 +126,39 @@ imagesc(landsat_data(:,:,6))
 subplot(2,4,7)
 imagesc(landsat_data(:,:,7))
 
+% training data 
 T = zeros(512,512);     % Create an empty image
-T(20:70,490:512) = 1;   % Class 1: Water
-T(180:260,430:510) = 2; % Class 2: Forrest
-T(315:360,255:300) = 3; % Class 3: Agriculture
-T(50:170,120:250) = 4; % Class 4: Urban environment
+T(490:511,20:70) = 1;   % Class 1: Water
+T(450:510,140:190) = 2; % Class 2: Forrest
+T(324:344,395:415) = 3; % Class 3: Agriculture
+T(140:220,80:150) = 4; % Class 4: Urban environment
 
-Itest = im2testdata(landsat_data(:,:,[4,7]));
-[data,class] = create_training_data(Itest,T);
-C = classify(landsat_data(:,:,[1,4,7]),data,class);
-ImC = class2im(C,size(landsat_data(:,:,1)),size(landsat_data(:,:,1))); % Reshape the classification to an image
+%plot trainingdata and an image 
+figure()
+subplot(1,2,1)
+imagesc(T)
+subplot(1,2,2)
+imagesc(landsat_data(:,:,4))
+
+Itest = im2testdata(landsat_data(:,:,[1,4,7]));
+[data,class] = create_training_data(landsat_data(:,:,[1,4,7]),T);
+C = classify(Itest,data,class);
+ImC = class2im(C,size(landsat_data,1),size(landsat_data,2)); % Reshape the classification to an image
+figure()
+imagesc(ImC)
+title('Classified imaged')
+
+
+%ALL CHANNELS
+Itest = im2testdata(landsat_data);
+[data,class] = create_training_data(landsat_data,T);
+C = classify(Itest,data,class);
+ImC = class2im(C,size(landsat_data,1),size(landsat_data,2)); % Reshape the classification to an image
+ifigure()
+magesc(ImC)
+title('Classifications of ');
+
+
 
 
 % 6
