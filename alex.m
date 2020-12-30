@@ -5,7 +5,7 @@ figure(1);
 plot(cdata(:,1),cdata(:,2),'.')
 title('1', 'fontsize', 20)
 
-%2
+
 I = imread('handBW.pnm');
 
 % threshold determined by for loop, increacing each threshold, and
@@ -27,11 +27,12 @@ figure(4)
 % - pixelvalues above t2 as one value
 mtresh(I,t1,t2) % thresholded image
 
-% 3
+% 2
 I2 = imread('hand.pnm');   % Read the image
-figure(5);imshow(I2);      % Show the image
+figure(5);
+imshow(I2);      % Show the image
 R = I2(:,:,1);            % Separate the three layers, RGB
-G = I2(:,:,2);
+G = I2(:,:,2);  
 B = I2(:,:,3);
 figure(6);
 plot3(R(:),G(:),B(:),'.') % 3D scatterplot of the RGB dat
@@ -41,15 +42,17 @@ figure(7);
 imagesc(label_im);            % View the training areas
 
 I3(:,:,1) = G;% Create an image with two bands/features
-I3(:,:,2) = B;
+% I3(:,:,2) = B;
+% I3(:,:,3) = R;
 [data,class] = create_training_data(I3,label_im); % Arrange the training data into vectors
 figure(8);
-scatterplot2D(data,class)
+scatter(data,class)
 
-% 4
+Itest = im2testdata(I3);% Reshape the image before classification
+C = classify(double(Itest),double(data),double(class)); % Train classifier and classify the data
+ImC = class2im(C,size(I3,1),size(I3,2));% Reshape the classification to an image
+figure(9);
+imagesc(ImC)
 
-% 5
+load landsat_data
 
-% 6
-
-% 7
