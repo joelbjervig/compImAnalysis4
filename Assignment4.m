@@ -59,7 +59,7 @@ title('green histogram')
 
 label_im = imread('hand_training.png'); % Read image with labels
 figure(7);imagesc(label_im); % View the training areas
-
+%classify for pair bands
 I3(:,:,1) = G; % Create an image with two bands/features
 I3(:,:,2) = B;
 [data,class] = create_training_data(I3,label_im); % Arrange the training data into vectors
@@ -68,9 +68,41 @@ figure(8);scatterplot2D(data,class); % View the training feature vectors
 Itest = im2testdata(I3); % Reshape the image before classification
 C = classify(double(Itest),double(data),double(class)); % Train classifier and classify the data
 ImC = class2im(C,size(I3,1),size(I3,2)); % Reshape the classification to an image
-figure(9);imagesc(ImC); % View the classification result
 
-% 4
+% 4 - classify
+% grayscale
+[data_g,class_g] = create_training_data(I,label_im);
+Itest_g = im2testdata(I);
+C_g = classify(double(Itest_g),double(data_g),double(class_g));
+ImC_g = class2im(C_g,size(I,1),size(I,2)); % Reshape the classification to an image
+
+% single band - red
+[data_R,class_R] = create_training_data(R,label_im);
+Itest_R = im2testdata(R);
+C_R = classify(double(Itest_R),double(data_R),double(class_R));
+ImC_R = class2im(C_R,size(R,1),size(R,2)); % Reshape the classification to an image
+
+% pair band
+% see pair band above
+
+% all bands
+[data_3,class_3] = create_training_data(I2,label_im);
+Itest_3 = im2testdata(I2);
+C_3 = classify(double(Itest_3),double(data_3),double(class_3));
+ImC_3 = class2im(C_3,size(I2,1),size(I2,2)); % Reshape the classification to an image
+
+figure(10)
+subplot(1,3,1)
+imagesc(ImC_g); % View the classification result
+title('Grayscale')
+
+subplot(1,3,2)
+imagesc(ImC_R); % View the classification result
+title('Single band: Red')
+
+subplot(1,3,3)
+imagesc(ImC_3); % View the classification result
+title('All bands: RBG')
 
 % 5
 
