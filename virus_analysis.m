@@ -1,4 +1,10 @@
-    %% Read image and template from disk
+%% VAD VI SKA GÖRA:
+% hitta rätt offset
+% uniformity plot
+% vad vi ska göra med rescale(SI)? - entropy uniformity
+% ta bort outliers efter segmentation av viruses.tif i sequence
+
+%% Read image and template from disk
 % 
 % Read image
 % I = imread('viruses.tif');
