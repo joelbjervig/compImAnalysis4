@@ -30,6 +30,7 @@ mtresh(I,t1,t2) % thresholded image
 % 3
 
 
+
 % 4
 
 % 5
