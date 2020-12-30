@@ -1,14 +1,7 @@
-%% VAD VI SKA GÖRA:
-% hitta rätt offset
-% uniformity plot
-% vad vi ska göra med rescale(SI)? - entropy uniformity
-% ta bort outliers efter segmentation av viruses.tif i sequence
-
-
-%% Read image and template from disk
-
+    %% Read image and template from disk
+% 
 % Read image
-I = imread('viruses.tif');
+% I = imread('viruses.tif');
 
 % Read template
 template = imread('virusTemplate.tif');
@@ -16,19 +9,6 @@ template = imread('virusTemplate.tif');
 % Show image and template
 figure('name','Original image');imshow(I);
 figure('name','Template');imshow(template);
-%% Gray scale cocurrance matrix with offset
-d=10;
-offsets = d.*[0 1; -1 1; -1 0; -1 1];
-[glcms,SI] =  graycomatrix(I, 'offset', offsets);
-I = uint8(255*rescale(SI));
-figure('name','coocurrance');imshow(I);
-
-% figure()
-% subplot(1,2,1)
-% imshow(rescale(SI))
-% subplot(1,2,2)
-% imshow(I)
-
 
 %% Template matching
 
@@ -40,7 +20,7 @@ stepSize = 10;
 ccimg = templatematching(I,template,stepSize);
 
 % Show the resulting correlation image
-%figure('name','correlation coefficients');imshow(ccimg,[]);colormap(copper);colorbar;
+% figure('name','correlation coefficients');imshow(ccimg,[]);colormap(copper);colorbar;
 
 
 %% Find localmaxima in the correlation image
@@ -110,7 +90,6 @@ rows = ceil(size(cutouts,2) / cols);
 objectMap = uint8(zeros(size(mask).*[rows cols]));
 counter = 1;
 
-
 for i = 1 : rows
     for j = 1 : cols
         if counter <= size(cutouts,2)
@@ -139,5 +118,9 @@ keep('I','template','mask','cutouts','nrOfObjects');%'objectMap');
 % Place for your own texture analysis. 
 
 
-
+[glcm,I] = graycomatrix(I,'Offset',[1 1;0 1; 1 0;]*10,'Symmetric',true);
+glcm
+figure
+imshow(rescale(I))
+I=rescale(I);
 
