@@ -1,10 +1,3 @@
-%% VAD VI SKA GÖRA:
-% hitta rätt offset
-% uniformity plot
-% vad vi ska göra med rescale(SI)? - entropy uniformity
-% ta bort outliers efter segmentation av viruses.tif i sequence
-
-
 %% Read image and template from disk
 
 % Read image
@@ -20,9 +13,7 @@ figure('name','Template');imshow(template);
 d=10;
 offsets = d.*[0 1; -1 1; -1 0; -1 1];
 [glcms,SI] =  graycomatrix(I, 'offset', offsets);
-I = uint8(255*rescale(SI));
-figure('name','coocurrance');imshow(I);
-
+I = uint8(SI);
 % figure()
 % subplot(1,2,1)
 % imshow(rescale(SI))

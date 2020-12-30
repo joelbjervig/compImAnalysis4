@@ -164,10 +164,8 @@ imagesc(ImC)
 title('Classifications using all seven channels', 'fontsize', 24);
 sgtitle('')
 
-
-
-
 % 6
+% see paper
 
+% 7 - TEXTURE BASED CLASSIFICATION
 
-% 7
