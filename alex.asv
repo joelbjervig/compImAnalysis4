@@ -83,9 +83,8 @@ xlabel('attempt at separating farmland')
 scatterplot3D(data,class);
 
 Itest=im2testdata(landsat_data(:,:,[1,2,3]));
-figure
-C = classify(double(Itest),double(data),double(class),'diaglinear');
+C = classify(double(Itest),double(data),double(class));
 ImC = class2im(C,size(landsat_data,1),size(landsat_data,2));
 figure(11);
 imagesc(ImC);
-title('classification on 1,2,3')
+title('classi
