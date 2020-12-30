@@ -59,7 +59,6 @@ figure(10)
 imshow(landsat_data(:,:,[7,1,4])./255)
 
 T = zeros(512,512); % Create an empty image
-Ig=imcomplement(im2bw(landsat_data(:,:,5),0.5))
 T(Ig)=1; %vatten
 Ig2=im2bw(landsat_data(:,:,6)/255,0.98)
 T(Ig2)=2; %stad
@@ -83,8 +82,7 @@ xlabel('attempt at separating farmland')
 scatterplot3D(data,class);
 
 Itest=im2testdata(landsat_data(:,:,[1,2,3]));
-figure
-C = classify(double(Itest),double(data),double(class),'diaglinear');
+C = classify(double(Itest),double(data),double(class));
 ImC = class2im(C,size(landsat_data,1),size(landsat_data,2));
 figure(11);
 imagesc(ImC);

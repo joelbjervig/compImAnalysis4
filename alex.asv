@@ -87,4 +87,4 @@ C = classify(double(Itest),double(data),double(class));
 ImC = class2im(C,size(landsat_data,1),size(landsat_data,2));
 figure(11);
 imagesc(ImC);
-title('classi
+title('classification on 1,2,3')

@@ -1,7 +1,7 @@
     %% Read image and template from disk
 % 
 % Read image
-% I = imread('viruses.tif');
+I = imread('viruses.tif');
 
 % Read template
 template = imread('virusTemplate.tif');
@@ -121,6 +121,6 @@ keep('I','template','mask','cutouts','nrOfObjects');%'objectMap');
 [glcm,I] = graycomatrix(I,'Offset',[1 1;0 1; 1 0;]*10,'Symmetric',true);
 glcm
 figure
-imshow(rescale(I))
+imshow(rescale(SI))
 I=rescale(I);
 
