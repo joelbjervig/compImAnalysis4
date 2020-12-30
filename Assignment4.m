@@ -139,14 +139,19 @@ subplot(1,2,1)
 imagesc(T)
 subplot(1,2,2)
 imagesc(landsat_data(:,:,4))
+sgtitle('Areas of training relative to the image (channel 4)', 'fontsize', 24)
 
-Itest = im2testdata(landsat_data(:,:,[1,4,7]));
-[data,class] = create_training_data(landsat_data(:,:,[1,4,7]),T);
+Itest = im2testdata(landsat_data(:,:,[4,6,7]));
+[data,class] = create_training_data(landsat_data(:,:,[4,6,7]),T);
 C = classify(Itest,data,class);
 ImC = class2im(C,size(landsat_data,1),size(landsat_data,2)); % Reshape the classification to an image
 figure()
+scatterplot3D(data,class)
+figure()
+sgtitle('Classification of image')
+subplot(1,2,1)
 imagesc(ImC)
-title('Classified imaged')
+title('Classifications using channel 4,6,7', 'fontsize', 24)
 
 
 %ALL CHANNELS
@@ -154,9 +159,10 @@ Itest = im2testdata(landsat_data);
 [data,class] = create_training_data(landsat_data,T);
 C = classify(Itest,data,class);
 ImC = class2im(C,size(landsat_data,1),size(landsat_data,2)); % Reshape the classification to an image
-ifigure()
-magesc(ImC)
-title('Classifications of ');
+subplot(1,2,2)
+imagesc(ImC)
+title('Classifications using all seven channels', 'fontsize', 24);
+sgtitle('')
 
 
 
