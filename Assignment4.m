@@ -34,6 +34,8 @@ R = I2(:,:,1); % Separate the three layers, RGB
 G = I2(:,:,2);
 B = I2(:,:,3);
 figure(6);plot3(R(:),G(:),B(:),'.') % 3D scatterplot of the RGB data
+
+% plot each image component r b g and their histogram
 figure()
 subplot(2,3,1)
 imshow(R)
@@ -53,6 +55,10 @@ title('blue histogram')
 subplot(2,3,6)
 imhist(G)
 title('green histogram')
+
+
+label_im = imread('hand_training.png'); % Read image with labels
+figure(7);imagesc(label_im); % View the training areas
 
 % 4
 
