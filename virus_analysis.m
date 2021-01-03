@@ -7,7 +7,7 @@
 %% Read image and template from disk
 % 
 % Read image
-% I = imread('viruses.tif');
+I = imread('viruses.tif');
 
 % Read template
 template = imread('virusTemplate.tif');
@@ -124,9 +124,14 @@ keep('I','template','mask','cutouts','nrOfObjects');%'objectMap');
 % Place for your own texture analysis. 
 
 
-[glcm,I] = graycomatrix(I,'Offset',[1 1;0 1; 1 0;]*10,'Symmetric',true);
+[glcm,I_co] = graycomatrix(I,'Offset',[1 0; -1 1;-1 0;-1 -1]*10);
 glcm
 figure
-imshow(rescale(I))
-I=rescale(I);
+imshow(rescale(I_co))
+
+% uniformity 
+n = sum(sum(glcm));
+
+p = (n.^(-1)).*glcm; % probabillity
+uniformity = sum(sum(p.^2))
 
