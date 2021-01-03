@@ -139,9 +139,9 @@ for i=1:length(cutouts)
     uniformity(i) = sum(sum(p.^2));
     
     if(uniformity(i)>0.1)
-        index = [index i];
+        index = [index i]; % which cells in cutouts have too high uniformity to be a virus
     end
 end
-
 plot(uniformity,'o')
+title(string(index))
 

@@ -129,7 +129,7 @@ keep('I','template','mask','cutouts','nrOfObjects');%'objectMap');
 % imshow(rescale(I_co))
 
 % uniformity meassure for each cutout
-tol = 0.1 % some uniformity tolerance
+tol = 0.1; % some uniformity tolerance
 index = [];
 uniformity = zeros(1,length(cutouts));
 for i=1:length(cutouts)
@@ -138,10 +138,11 @@ for i=1:length(cutouts)
     p = (n.^(-1)).*glcm; % probabillity
     uniformity(i) = sum(sum(p.^2));
     
-    if(uniformity(i)>0.1)
-        index = [index i];
+    if(uniformity(i)<0.1)
+        index = [index i]; % which cells in cutouts have too high uniformity to be a virus
     end
 end
-
 plot(uniformity,'o')
+title(['uniformity of each cutout. Missclassified objects on index: ',  mat2str(index)])
+
 
