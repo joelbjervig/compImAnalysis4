@@ -7,7 +7,7 @@
 %% Read image and template from disk
 % 
 % Read image
-I = imread('viruses.tif');
+I = imread('im2.png');
 
 % Read template
 template = imread('virusTemplate.tif');
@@ -137,11 +137,16 @@ for i=1:length(cutouts)
     n = sum(sum(glcm));  % number of pixels that satisfies the offset condition in the image
     p = (n.^(-1)).*glcm; % probabillity
     uniformity(i) = sum(sum(p.^2));
-    
-    if(uniformity(i)<0.1)
-        index = [index i]; % which cells in cutouts have too high uniformity to be a virus
+    ent(i)=entropy(cell2mat(cutouts(i)));
+    if(uniformity(i)>0.1)
+        index = [index i];
     end
 end
+
+figure()
+plot(ent,'o')
+title('Entropy of each cutout')
+figure()
 plot(uniformity,'o')
 title(['uniformity of each cutout. Missclassified objects on index: ',  mat2str(index)])
 
